@@ -9,7 +9,7 @@ interface ImageObserver {
 }
 
 class ImageSubject {
-    private List<ImageObserver> observers = new ArrayList<>();
+    private final List<ImageObserver> observers = new ArrayList<>();
 
     public void addObserver(ImageObserver observer) {
         observers.add(observer);
@@ -42,7 +42,7 @@ class SortPixelsStrategy implements TransformationStrategy {
 }
 
 class ImageProcessor implements ImageObserver {
-    private TransformationStrategy strategy;
+    private final TransformationStrategy strategy;
 
     public ImageProcessor(TransformationStrategy strategy) {
         this.strategy = strategy;
@@ -97,7 +97,7 @@ public class ImageProcessingDemo {
     public static void main(String[] args) throws IOException {
         Logger.getInstance().log("Starting Image Transformation...");
 
-        File imageFile = new File("Your file"); // Update to the path of your image
+        File imageFile = new File("/Users/mec/Desktop/qc_map.png"); // Update to the path of your image
         String inputImagePath = imageFile.getAbsolutePath();
         String fileExtension = inputImagePath.substring(inputImagePath.lastIndexOf('.') + 1);
 
