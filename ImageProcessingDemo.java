@@ -41,6 +41,20 @@ class SortPixelsStrategy implements TransformationStrategy {
     }
 }
 
+class RandomizePixelsStrategy implements TransformationStrategy {
+    private Random random = new Random();
+    public void transform(int[] pixels) {
+        for (int i = 0; i < pixels.length; i++) {
+            int randomIndex = random.nextInt(pixels.length);
+
+            // Swap pixels
+            int temp = pixels[i];
+            pixels[i] = pixels[randomIndex];
+            pixels[randomIndex] = temp;
+        }
+    }
+}
+
 class ImageProcessor implements ImageObserver {
     private final TransformationStrategy strategy;
 
@@ -97,7 +111,7 @@ public class ImageProcessingDemo {
     public static void main(String[] args) throws IOException {
         Logger.getInstance().log("Starting Image Transformation...");
 
-        File imageFile = new File("/Users/mec/Desktop/qc_map.png"); // Update to the path of your image
+        File imageFile = new File("/path/to/your_pic.jpeg"); // Update to the path of your image
         String inputImagePath = imageFile.getAbsolutePath();
         String fileExtension = inputImagePath.substring(inputImagePath.lastIndexOf('.') + 1);
 
@@ -110,8 +124,10 @@ public class ImageProcessingDemo {
         String outputPath = inputImagePath.substring(0, inputImagePath.lastIndexOf('.')) + "_transformed." + fileExtension;
 
         ImageSubject imageSubject = new ImageSubject();
-        ImageProcessor processor = new ImageProcessor(new SortPixelsStrategy());
-        imageSubject.addObserver(processor);
+        //ImageProcessor processor = new ImageProcessor(new SortPixelsStrategy());
+        ImageProcessor processor_r = new ImageProcessor(new RandomizePixelsStrategy());
+       // imageSubject.addObserver(processor);
+        imageSubject.addObserver(processor_r);
 
         imageSubject.notifyObservers(image, outputPath);
 
