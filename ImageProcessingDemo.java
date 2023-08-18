@@ -125,9 +125,9 @@ public class ImageProcessingDemo {
         String outputPath = inputImagePath.substring(0, inputImagePath.lastIndexOf('.')) + "_transformed." + fileExtension;
 
         ImageSubject imageSubject = new ImageSubject();
-        //ImageProcessor processor = new ImageProcessor(new SortPixelsStrategy());
+        // ImageProcessor processor = new ImageProcessor(new SortPixelsStrategy());
         ImageProcessor processor_r = new ImageProcessor(new RandomizePixelsStrategy());
-       // imageSubject.addObserver(processor);
+        // imageSubject.addObserver(processor);
         imageSubject.addObserver(processor_r);
         imageSubject.notifyObservers(image, outputPath);
 
