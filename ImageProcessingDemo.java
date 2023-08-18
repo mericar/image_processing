@@ -1,8 +1,8 @@
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.util.*;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.*;
 
 interface ImageObserver {
     void onImageReady(BufferedImage image, String path) throws IOException;
@@ -107,11 +107,12 @@ class Logger {
     }
 }
 
+
 public class ImageProcessingDemo {
     public static void main(String[] args) throws IOException {
         Logger.getInstance().log("Starting Image Transformation...");
 
-        File imageFile = new File("/path/to/your_pic.jpeg"); // Update to the path of your image
+        File imageFile = new File("/Users/mec/Desktop/img_fun/image.jpeg"); // Update to the path of your image
         String inputImagePath = imageFile.getAbsolutePath();
         String fileExtension = inputImagePath.substring(inputImagePath.lastIndexOf('.') + 1);
 
@@ -128,8 +129,10 @@ public class ImageProcessingDemo {
         ImageProcessor processor_r = new ImageProcessor(new RandomizePixelsStrategy());
        // imageSubject.addObserver(processor);
         imageSubject.addObserver(processor_r);
-
         imageSubject.notifyObservers(image, outputPath);
+
+        DataExtractionUtils.extractColorData(image, "/path/to/file.jpeg");
+        Logger.getInstance().log("Extracting image data.");
 
         Logger.getInstance().log("Image Transformation Complete. Transformed image saved to " + outputPath);
     }
